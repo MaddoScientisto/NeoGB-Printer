@@ -1,4 +1,4 @@
-/NeoGB_Printer/config.h
+#/NeoGB_Printer/config.h
 /NeoGB_Printer/.vscode/*
 /displayImages/helloOLED*.png
 /GBP Case/GBP Logo.png
