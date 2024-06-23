@@ -27,7 +27,7 @@
 		}
 
 		.gallery__canvas {
-			width: 100%;
+			width: 80%;
 			aspect-ratio: 1 / 1;
 			border-radius: 5px;
 			cursor: pointer;
@@ -189,7 +189,7 @@
 			// 	res.json()
 			// });
 
-			const imgData = JSON.parse(data);
+			const imgData = getImgData();
 
 			const gallery = document.getElementById("gallery");
 			clearChildren(gallery);
@@ -214,6 +214,14 @@
 			if (folder.FolderInfo.haveDumps === 1) {
 				document.getElementById("msgDumps").style.display = "block";
 			}
+
+			// Delete button at the end of gallery
+
+			const deleteAllButton = createButton("Delete ALL");
+			deleteAllButton.classList.add("button-red");
+			deleteAllButton.onclick = () => deleteAll();
+			gallery.appendChild(deleteAllButton);
+
 		})
 
 		const modal = document.getElementById("myModal");
@@ -223,6 +231,52 @@
 
 		closeModal.onclick = function () {
 			modal.style.display = "none";
+		}
+
+		function getImgData() {
+			return JSON.parse(data);
+		}
+
+
+
+		async function deleteAll() {
+			const confirmDeletion = confirm("Are you sure you want to delete EVERYTHING?");
+			if (confirmDeletion) {
+
+				const imgData = getImgData();
+
+				for (const image of Object.values(imgData[0].ImageFolder)) {
+					try {
+						await fetchJson(`delete/${image.ImageName}`);
+						console.log(`Deleted ${image.id} ${image.ImageName}`);
+					} catch (error) {
+						// There was also a typo in the variable name; it should be 'error', not 'err'.
+						console.error(error);
+					}
+				}
+
+				// imgdata[0].ImageFolder.forEach(async (image, imageIndex) => {
+
+				// 	try {
+				// 		await fetchJson(`delete/${image.ImageName}`);
+
+
+				// 		console.log(`Deleted ${image.id} ${image.ImageName}`)
+				// 	}
+				// 	catch (error) {
+				// 		console.error(err);
+				// 	}
+				// });
+
+				await fetchJson("refreshlist");
+			}
+		}
+
+		function createButton(text) {
+			const button = document.createElement("a");
+			button.className = "button";
+			button.textContent = text
+			return button;
 		}
 
 		function updateModalImage(imgElement, imageID) {
@@ -242,39 +296,42 @@
 				ctx.drawImage(image, 0, 0);
 			};
 
-			const imgdata = JSON.parse(data);
+			const imgdata = getImgData();
 			const currentImageData = imgdata[0].ImageFolder[imageID];
 
 			clearChildren(captionText);
 
 			if (currentImageData.bmp === 1) {
-				const button = document.createElement("a");
+				const button = createButton("BMP");
+				//const button = document.createElement("a");
 				button.href =
 					`download/${currentImageData.ImageName}.bmp`;
 				button.download = `${currentImageData.ImageName}.bmp`
-				button.className = "button";
-				button.textContent = "BMP"
+				//button.className = "button";
+				//button.textContent = "BMP"
 
 				captionText.appendChild(button);
 			}
 			if (currentImageData.png === 1) {
-				const button = document.createElement("a");
+				const button = createButton("PNG");
+				//const button = document.createElement("a");
 				button.href =
 					`download/${currentImageData.ImageName}.png`;
 				button.download =
 					`${currentImageData.ImageName}.png`
-				button.className = "button";
-				button.textContent = "PNG"
+				//button.className = "button";
+				//button.textContent = "PNG"
 
 				captionText.appendChild(button);
 			}
 
-			const clearButton = document.createElement("a");
+			const clearButton = createButton("Delete");
+			//const clearButton = document.createElement("a");
 			clearButton.onclick = () => clearBox(currentImageData.ImageName, imgElement);
 
 			clearButton.classList.add("button", "button-red");
 			//clearButton.className = "button";
-			clearButton.textContent = "Delete";
+			//clearButton.textContent = "Delete";
 			captionText.appendChild(clearButton);
 		}
 
