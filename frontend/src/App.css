@@ -1,0 +1,141 @@
+body {
+  font-family: Helvetica, sans-serif;
+  background-color: #c2c5cc;
+}
+
+.title {
+  text-align: center;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 33.3%);
+  gap: 1px;
+}
+
+.gallery__img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.gallery__canvas {
+  max-width: 80%;
+  height: calc(100vh - 200px); /* Adjusted to fit within modal */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  image-rendering: pixelated;
+  display: block;
+  margin: auto; /* Center the canvas horizontally */
+}
+
+figure {
+  margin: 4px;
+}
+
+.button {
+  background-color: #808080;
+  border: none;
+  color: white;
+  padding: 3% 4%;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.button-red {
+  background-color: red;
+}
+
+.gallery__img:hover {
+  opacity: 0.7;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Space between elements */
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  padding-top: 20px; /* Adjusted padding */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+  width: 80%;
+  max-width: 700px;
+  margin: auto;
+}
+
+#caption {
+  color: #ccc;
+  text-align: center;
+  padding: 10px 0;
+  width: 80%;
+  max-width: 700px;
+  margin: auto;
+  position: absolute;
+  bottom: 20px; /* Position at the bottom */
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  cursor: pointer;
+}
+
+.preview_caption {
+  align-content: center;
+}
+
+#msgDumps {
+  text-align: center;
+  color: #856404;
+  background-color: #fff3cd;
+  margin-top: 1rem;
+  padding: 0.75rem 1.25rem;
+  border-color: #ffeeba;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  display: none;
+}
+
+@media (min-width: 576px) {
+  .gallery {
+    margin: auto;
+    width: 50%;
+    gap: 3% 0.4%;
+  }
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
