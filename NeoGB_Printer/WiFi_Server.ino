@@ -60,7 +60,7 @@ void refreshWebData(){
     }
     
     Serial.print("WEB - Getting image list");
-    file.print("data='[{\"ImageFolder\":{");
+    file.print("[{\"ImageFolder\":{");
   
     char thumbDir[31];
     char imgDir[31];
@@ -119,7 +119,7 @@ void refreshWebData(){
     }
     Serial.println("... Done!");
     
-    file.print("}}]'");
+    file.print("}}]");
     file.close();
   
   Serial.println("WEB - New file generated! Refreshing page...");

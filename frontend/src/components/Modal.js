@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import Button from './Button';
 
-function Modal({ image, onClose }) {
+function Modal({ image, onClose, onDelete }) {
 	
 	const canvasRef = useRef(null);
 	
@@ -53,7 +53,7 @@ function Modal({ image, onClose }) {
 			<div id="caption">
 				{image.bmp === 1 && <Button text="BMP" href={`download/${image.ImageName}.bmp`} download={`${image.ImageName}.bmp`} />}
 				{image.png === 1 && <Button text="PNG" href={`download/${image.ImageName}.png`} download={`${image.ImageName}.png`} />}
-				<Button text="Delete" onClick={() => console.log('Delete')} className="button-red" />
+				<Button text="Delete" onClick={() => onDelete(image.ImageName)} className="button-red" />
 			</div>
 		</div>
 	);
