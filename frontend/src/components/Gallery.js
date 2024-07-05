@@ -26,7 +26,6 @@ function Gallery({ images, onImageClick, selectedColors, setSelectedColors }) {
 									 selectedColors={selectedColors}
 				/>
 			))}
-			
 		</div>
 	);
 }

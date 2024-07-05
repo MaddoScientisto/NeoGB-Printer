@@ -28,7 +28,7 @@ function App() {
     // else {
       const response = await fetch('ImgList.json');
       const result = await response.json();
-      setImages(Object.values(result[0].ImageFolder));
+      setImages(Object.values(result[0].ImageFolder).filter(i => (i.bmp > 0 || i.png > 0)));
       setFolderInfo(result[0].FolderInfo);
     // }
     
